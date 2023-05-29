@@ -43,7 +43,7 @@ for msg in consumerReactions:
 
     info = {'name': record['name'],
     'publication' : record['publication'],
-    'reaction' = record['reaction']}
+    'reaction' : record['reaction']}
 
     try:
         info_id = db.reactions_info.insert_one(info)
@@ -59,7 +59,7 @@ for msg in consumerComments:
 
     info = {'name': record['name'],
     'publication' : record['publication'],
-    'comment' = record['comment']}
+    'comment' : record['comment']}
 
     try:
         info_id = db.comments_info.insert_one(info)

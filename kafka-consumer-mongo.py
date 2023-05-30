@@ -53,17 +53,15 @@ for msg in consumerReactions:
 
     #Summary de reactions
     try:
-        agg_result = db.reactions_info.aggregate([
-        {
-            "$group": {
-                "_id": {
-                    "publication_id": "$publication",
-                    "reaction_id": "$reaction"
-                },
-                "n": {"$sum": 1}
-            }
-        }
-        ])
+        agg_result = db.reactions_info.aggregate(
+            [{
+                "$group" : { "_id" : "$publication",
+                             "$group" : { "_id" : "$reaction",
+                                          "total" : {"$sum":1}
+                                        }
+                            }
+            }]
+        )
         db.reactions_summary.delete_many({})
         for i in agg_result:
             print(i)

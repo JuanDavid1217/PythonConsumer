@@ -51,6 +51,29 @@ for msg in consumerReactions:
     except:
         print("Could not insert into MongoDB")
 
+    #Summary de reactions
+    try:
+        agg_result = db.reactions_info.aggregate(
+            [{
+                "$group" : { "_id" : "$publicatio_id",
+                             "$group" : { "_id" : "$reaction",
+                                          "n" : {"$sum":1}
+                                        }
+                            }
+            }]
+        )
+        db.reactions_summary.delete_many({})
+        for i in agg_result:
+            print(i)
+            summary_id = db.reactions_summary.insert_one(i)
+            print("Summary inserted with record ids", summary_id)
+    except Exception as e:
+        print(f'group by caught {type(e)}: ')
+        print(e)
+        print("Could not insert into MongoDB")
+
+
+
 #Para consumir el topic comments
 consumerComments = KafkaConsumer('comments',bootstrap_servers=['my-kafka.kubernetes-kafka-juandavid1217.svc.cluster.local:9092']) 
 for msg in consumerComments:

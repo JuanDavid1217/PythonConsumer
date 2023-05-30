@@ -71,26 +71,6 @@ for msg in consumerReactions:
         print(e)
         print("Could not insert into MongoDB")
 
-
-
-#Para consumir el topic comments
-consumerComments = KafkaConsumer('comments',bootstrap_servers=['my-kafka.kubernetes-kafka-juandavid1217.svc.cluster.local:9092']) 
-for msg in consumerComments:
-    record = json.loads(msg.value)
-    print(record)
-
-    info = {'name':record['name'],
-    'publication':record['publication'],
-    'comment':record['comment']}
-
-    try:
-        info_id = db.comments_info.insert_one(info)
-        print("Data inserted with record ids", info_id)
-    except:
-        print("Could not insert into MongoDB")
-
-
-
 #Esto es el profe
 #consumer = KafkaConsumer('test',bootstrap_servers=['my-kafka.kubernetes-kafka-juandavid1217.svc.cluster.local:9092'])#'my-kafka-0.my-kafka-headless.kafka-adsoftsito.svc.cluster.local:9092'])
 # Parse received data from Kafka

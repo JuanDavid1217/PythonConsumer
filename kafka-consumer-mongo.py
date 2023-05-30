@@ -56,9 +56,10 @@ for msg in consumerReactions:
         agg_result = db.reactions_info.aggregate(
             [{
                 "$group" : { "_id" : "$publication",
-                             "$group2" : { "_id" : "$reaction",
+                             "$group" : { "_id" : "$reaction",
                                           "total" : {"$sum":1}
-                                        }
+                                        },
+                             "total":{"$sum":1}
                             }
             }]
         )

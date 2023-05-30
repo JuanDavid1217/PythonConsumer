@@ -62,7 +62,7 @@ for msg in consumerComments:
     'comment' : record['comment']}
 
     try:
-        info_id = db.comments_info.insert(info)
+        info_id = db.comments_info.insert_one(info)
         print("Data inserted with record ids", info_id)
     except:
         print("Could not insert into MongoDB")

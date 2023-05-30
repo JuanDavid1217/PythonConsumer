@@ -41,9 +41,9 @@ for msg in consumerReactions:
     record = json.loads(msg.value)
     print(record)
 
-    info = {'name': record['name'],
-    'publication' : record['publication'],
-    'reaction' : record['reaction']}
+    info = {'name':record['name'],
+    'publication':record['publication'],
+    'reaction':record['reaction']}
 
     try:
         info_id = db.reactions_info.insert_one(info)
@@ -57,9 +57,9 @@ for msg in consumerComments:
     record = json.loads(msg.value)
     print(record)
 
-    info = {'name': record['name'],
-    'publication' : record['publication'],
-    'comment' : record['comment']}
+    info = {'name':record['name'],
+    'publication':record['publication'],
+    'comment':record['comment']}
 
     try:
         info_id = db.comments_info.insert_one(info)
